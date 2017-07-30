@@ -83,6 +83,7 @@ $(document).ready(function() {
   function restart() {
     playersCard.splice(0,playersCard.length);
     dealersCard.splice(0,dealersCard.length);
+    $('.card').remove();
     deal();
   }
 
@@ -114,6 +115,10 @@ $(document).ready(function() {
     }
     console.log(score(dealersCard));
     checkWinner();
+  });
+
+  $('#shuffle').click(function() {
+    restart();
   });
 
   deal();
