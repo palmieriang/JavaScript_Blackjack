@@ -7,6 +7,7 @@ $(document).ready(function() {
   var card;
   var playersCard = [];
   var dealersCard = [];
+  var score1 = 0;
 
   function createDeck() {
     for(var i = 0; i < cards.length; i++) {
@@ -43,26 +44,51 @@ $(document).ready(function() {
     card3 = shuffledCards[2];
     playersCard.push(card1, card2);
     dealersCard.push(card3);
-    showCard(playersCard);
+    showPlayerCard(playersCard);
+    showDealerCard(dealersCard);
     shuffledCards.splice(0, 3);
   }
 
   function showPlayerCard(playersCard) {
-    for (var i = 0; i <= playersCard.length; i++) {
-      $('.player').append("<div class='card'><span> " + playersCard[i].value + " </span></div>");
+    for (var key in playersCard) {
+      $('.player').append("<div class='card'><span> " + playersCard[key].value + " </span></div>");
     }
+    $('#score-player').html("Player score: " + score(playersCard));
   }
 
   function showDealerCard(dealersCard) {
-    for (var i = 0; i <= playersCard.length; i++) {
-      $('.player').append("<div class='card'><span> " + playersCard[i].value + " </span></div>");
+    for (var key in dealersCard) {
+      $('.dealer').append("<div class='card'><span> " + dealersCard[key].value + " </span></div>");
     }
+  }
+
+  function score(object) {
+    var sum = 0;
+    for (var key in object) {
+      sum += object[key].point;
+    }
+    return sum;
   }
 
   deal();
 
-  console.log(playersCard);
-  console.log(dealersCard);
+  $('#hit').click(function() {
+    var newCard = shuffledCards[0];
+    playersCard.push(newCard);
+    $('.player').append("<div class='card'><span> " + newCard.value + " </span></div>");
+    $('#score-player').html("Player score: " + score(playersCard));
+    shuffledCards.splice(0, 1);
+  })
+
+  score(playersCard);
+
+
+  function test() {
+    console.log(shuffledCards)
+  }
+
   console.log(shuffledCards);
+
+
 
 });
