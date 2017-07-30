@@ -1,6 +1,27 @@
 $(document).ready(function() {
 
-  deck = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"];
+  var cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"];
+  var suit = ["Hearts", "Diamonds", "Spades", "Clubs"];
+
+// to be romoved
+var deck = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"];
+
+
+  var newDeck = [];
+
+  for(var i = 0; i < cards.length; i++) {
+    for(var j = 0; j < suit.length; j++) {
+      if(cards[i] === 1) {
+        newDeck.push({"value": cards[i], "suit": suit[j], "point": 11});
+      } else if(cards[i] === "J" || cards[i] === "Q" || cards[i] === "K") {
+        newDeck.push({"value": cards[i], "suit": suit[j], "point": 10});
+      } else {
+        newDeck.push({"value": cards[i], "suit": suit[j], "point": cards[i]});
+      }
+    }
+  }
+  console.log(newDeck);
+
   var playersCard = [];
   var dealersCard = [];
 
@@ -8,12 +29,12 @@ $(document).ready(function() {
   var score2 = 0;
 
   function getSuit() {
-    suit = Math.floor(Math.random() * 4) + 1;
-    if (suit == 1) {
+    var suit = Math.floor(Math.random() * 4) + 1;
+    if (suit === 1) {
       return "Hearts"
-    } else if( suit == 2) {
+    } else if( suit === 2) {
       return "Diamonds"
-    } else if( suit == 3) {
+    } else if( suit === 3) {
       return "Spades"
     } else {
       return "Clubs"
@@ -21,7 +42,7 @@ $(document).ready(function() {
   }
 
   function deal() {
-    index = Math.floor(Math.random() * deck.length);
+    var index = Math.floor(Math.random() * deck.length);
     card = deck[index];
     getSuit();
     return card
