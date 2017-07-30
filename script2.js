@@ -25,7 +25,7 @@ $(document).ready(function() {
     return deck;
   }
 
-  function shuffle() {
+  (function shuffle() {
     shuffledCards = createDeck();
     for (var i = shuffledCards.length - 1; i > 0; i--) {
       var j = Math.floor(Math.random() * (i + 1));
@@ -34,12 +34,11 @@ $(document).ready(function() {
       shuffledCards[j] = temp;
     }
     return shuffledCards;
-  }
+  })();
 
-  shuffle();
   console.log(shuffledCards);
 
-  function deal() {
+  (function deal() {
     card1 = shuffledCards[0];
     card2 = shuffledCards[1];
     card3 = shuffledCards[2];
@@ -48,7 +47,7 @@ $(document).ready(function() {
     showCard(playersCard, turn);
     showCard(dealersCard, "dealer");
     shuffledCards.splice(0, 3);
-  }
+  })();
 
   function showCard(array, turn) {
     console.log(array, turn)
@@ -89,9 +88,9 @@ $(document).ready(function() {
     newCard()
   });
 
-  deal();
-
-  score(playersCard);
+  $('#shuffle').click(function() {
+    shuffle();
+  });
 
   function test() {
     console.log(shuffledCards)
