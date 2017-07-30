@@ -8,6 +8,7 @@ $(document).ready(function() {
   var playersCard = [];
   var dealersCard = [];
   var score1 = 0;
+  var turn = "player"
 
   function createDeck() {
     for(var i = 0; i < cards.length; i++) {
@@ -60,6 +61,21 @@ $(document).ready(function() {
     for (var key in dealersCard) {
       $('.dealer').append("<div class='card'><span> " + dealersCard[key].value + " </span></div>");
     }
+    $('#score-dealer').html("Dealer score: " + score(dealersCard));
+  }
+
+  function newCard() {
+    var newCard = shuffledCards[0];
+    $('.' + turn + '').append("<div class='card'><span> " + newCard.value + " </span></div>");
+    if (turn == "player") {
+      playersCard.push(newCard);
+      $('#score-' + turn + '').html("Player score: " + score(playersCard));
+    }
+    if (turn == "dealer") {
+      dealersCard.push(newCard);
+      $('#score-' + turn + '').html("Player score: " + score(dealersCard));
+    }
+    shuffledCards.splice(0, 1);
   }
 
   function score(object) {
@@ -73,12 +89,13 @@ $(document).ready(function() {
   deal();
 
   $('#hit').click(function() {
-    var newCard = shuffledCards[0];
-    playersCard.push(newCard);
-    $('.player').append("<div class='card'><span> " + newCard.value + " </span></div>");
-    $('#score-player').html("Player score: " + score(playersCard));
-    shuffledCards.splice(0, 1);
-  })
+    newCard();
+  });
+
+  $('#stick').click(function() {
+    turn = "dealer";
+    newCard()
+  });
 
   score(playersCard);
 
