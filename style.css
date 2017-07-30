@@ -1,0 +1,32 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Helvetica, sans-serif;
+  background: #eee;
+}
+
+.player, .dealer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.console-center {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.card {
+  height: 200px;
+  width: 150px;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  font-size: 110px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
