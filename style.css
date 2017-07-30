@@ -4,7 +4,7 @@
 
 body {
   font-family: Helvetica, sans-serif;
-  background: #eee;
+  background: #cde6d0;
 }
 
 .player, .dealer {
@@ -19,14 +19,46 @@ body {
 }
 
 .card {
+  position: relative;
+  background-color: #f6f6f6;
   height: 200px;
   width: 150px;
   margin: 10px;
-  padding: 10px;
+  padding: 20px;
   border: 1px solid black;
   border-radius: 5px;
-  font-size: 110px;
+  font-size: 30px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  box-shadow: 0px 3px 5px -3px black;
+}
+
+span.reverse {
+  right: 20px;
+  bottom: 20px;
+  position: absolute;
+  -moz-transform: scale(-1, -1);
+  -webkit-transform: scale(-1, -1);
+  -o-transform: scale(-1, -1);
+  -ms-transform: scale(-1, -1);
+  transform: scale(-1, -1);
+}
+
+.Hearts, .Diamonds {
+  color: red;
+}
+
+.Hearts:after {
+  content: " \2665";
+}
+
+.Diamonds:after {
+  content: " \2666";
+}
+
+.Spades:after {
+  content: " \2660";
+}
+
+.Clubs:after {
+  content: " \2663";
 }

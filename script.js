@@ -2,98 +2,126 @@ $(document).ready(function() {
 
   var cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"];
   var suit = ["Hearts", "Diamonds", "Spades", "Clubs"];
-
-// to be romoved
-var deck = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"];
-
-
-  var newDeck = [];
-
-  for(var i = 0; i < cards.length; i++) {
-    for(var j = 0; j < suit.length; j++) {
-      if(cards[i] === 1) {
-        newDeck.push({"value": cards[i], "suit": suit[j], "point": 11});
-      } else if(cards[i] === "J" || cards[i] === "Q" || cards[i] === "K") {
-        newDeck.push({"value": cards[i], "suit": suit[j], "point": 10});
-      } else {
-        newDeck.push({"value": cards[i], "suit": suit[j], "point": cards[i]});
-      }
-    }
-  }
-  console.log(newDeck);
-
+  var deck = [];
+  var shuffledCards = [];
+  var card;
   var playersCard = [];
   var dealersCard = [];
-
   var score1 = 0;
-  var score2 = 0;
+  var turn = "player"
 
-  function getSuit() {
-    var suit = Math.floor(Math.random() * 4) + 1;
-    if (suit === 1) {
-      return "Hearts"
-    } else if( suit === 2) {
-      return "Diamonds"
-    } else if( suit === 3) {
-      return "Spades"
-    } else {
-      return "Clubs"
+  function createDeck() {
+    for(var i = 0; i < cards.length; i++) {
+      for(var j = 0; j < suit.length; j++) {
+        if(cards[i] === 1) {
+          deck.push({"value": cards[i], "suit": suit[j], "point": 11});
+        } else if(cards[i] === "J" || cards[i] === "Q" || cards[i] === "K") {
+          deck.push({"value": cards[i], "suit": suit[j], "point": 10});
+        } else {
+          deck.push({"value": cards[i], "suit": suit[j], "point": cards[i]});
+        }
+      }
     }
+    return deck;
   }
+
+  (function shuffle() {
+    shuffledCards = createDeck();
+    for (var i = shuffledCards.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = shuffledCards[i];
+      shuffledCards[i] = shuffledCards[j];
+      shuffledCards[j] = temp;
+    }
+    return shuffledCards;
+  })();
+
+  console.log(shuffledCards);
 
   function deal() {
-    var index = Math.floor(Math.random() * deck.length);
-    card = deck[index];
-    getSuit();
-    return card
+    card1 = shuffledCards[0];
+    card2 = shuffledCards[1];
+    card3 = shuffledCards[2];
+    playersCard.push(card1, card2);
+    dealersCard.push(card3);
+    showCard(playersCard, turn);
+    showCard(dealersCard, "dealer");
+    shuffledCards.splice(0, 3);
+  };
+
+  function showCard(array, turn) {
+    console.log(array, turn)
+    for (var key in array) {
+      $('.'+turn).append("<div class='card " + array[key].suit + "'><span> " + array[key].value + " </span><span class='reverse " + array[key].suit + "'>" + array[key].value + "</span></div>");
+    }
+    $('#score-'+turn).html("Player score: " + score(array));
   }
 
-  function getPoint(card) {
-    if (card == 1) {
-      return 11;
-    } else if (card == "J" || card == "Q" || card == "K") {
-      return 10;
-    } else {
-      return card;
+  function newCard() {
+    var newCard = shuffledCards[0];
+    $('.' + turn).append("<div class='card " + newCard.suit + "'><span> " + newCard.value + " </span><span class='reverse " + newCard.suit + "'>" + newCard.value + "</span></div>");
+    if (turn == "player") {
+      playersCard.push(newCard);
+      $('#score-' + turn).html("Player score: " + score(playersCard));
     }
+    if (turn == "dealer") {
+      dealersCard.push(newCard);
+      $('#score-' + turn + '').html("Player score: " + score(dealersCard));
+    }
+    shuffledCards.splice(0, 1);
   }
 
-  function score(array) {
-    var sum = array.reduce(add, 0);
-
-    function add(a, b) {
-        return a + b;
+  function score(object) {
+    var sum = 0;
+    for (var key in object) {
+      sum += object[key].point;
     }
+    console.log(sum)
     return sum;
   }
 
-  var card1 = deal();
-  var card2 = deal();
-  var card3 = deal();
-
-  playersCard = [getPoint(card1), getPoint(card2)];
-  dealersCard = [getPoint(card3)];
-
-  for (var i = 0; i < playersCard.length; i++) {
-    $('.player').append("<div class='card'><span> " + playersCard[i] + " </span></div>");
-    $('#score-player').html("Player score: " + score(playersCard));
-  }
-  for (var i = 0; i < dealersCard.length; i++) {
-    $('.dealer').append("<div class='card'><span> " + dealersCard[i] + " </span></div>");
-    $('#score-dealer').html("Dealer score: " + score(dealersCard));
+  function restart() {
+    playersCard.splice(0,playersCard.length);
+    dealersCard.splice(0,dealersCard.length);
+    deal();
   }
 
-  $('#hit').click(function hit() {
-    newCard = deal();
-    playersCard.push(newCard);
-    console.log(playersCard);
-    $('.player').append("<div class='card'><span> " + newCard + " </span></div>");
-    newCard = getPoint(newCard);
-    playersCard.push(newCard);
-    $('#score-player').html("Player score: " + score(playersCard));
-  })
+  function checkWinner() {
+    if (score(dealersCard) > score(playersCard)) {
+      console.log("dealers won");
+      // turn = "player";
+      // score1++;
+      // restart();
+    } else if(score(dealersCard) === score(playersCard)) {
+      console.log("tie");
+    } else {
+      console.log("you win");
+    }
+  }
 
-  console.log(playersCard);
-  console.log(dealersCard);
+  $('#hit').click(function() {
+    if (score(playersCard) < 21) {
+      newCard();
+    } else {
+      console.log("you loose")
+    }
+  });
+
+  $('#stick').click(function() {
+    turn = "dealer";
+    while (score(dealersCard) < 17) {
+      newCard()
+    }
+    console.log(score(dealersCard));
+    checkWinner();
+  });
+
+  deal();
+
+  function test() {
+    console.log(shuffledCards)
+  }
+
+  console.log(shuffledCards);
 
 });
