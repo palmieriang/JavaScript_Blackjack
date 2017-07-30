@@ -45,23 +45,17 @@ $(document).ready(function() {
     card3 = shuffledCards[2];
     playersCard.push(card1, card2);
     dealersCard.push(card3);
-    showPlayerCard(playersCard);
-    showDealerCard(dealersCard);
+    showCard(playersCard, turn);
+    showCard(dealersCard, "dealer");
     shuffledCards.splice(0, 3);
   }
 
-  function showPlayerCard(playersCard) {
-    for (var key in playersCard) {
-      $('.player').append("<div class='card'><span> " + playersCard[key].value + " </span></div>");
+  function showCard(array, turn) {
+    console.log(array, turn)
+    for (var key in array) {
+      $('.'+turn).append("<div class='card'><span> " + array[key].value + " </span></div>");
     }
-    $('#score-player').html("Player score: " + score(playersCard));
-  }
-
-  function showDealerCard(dealersCard) {
-    for (var key in dealersCard) {
-      $('.dealer').append("<div class='card'><span> " + dealersCard[key].value + " </span></div>");
-    }
-    $('#score-dealer').html("Dealer score: " + score(dealersCard));
+    $('#score-'+turn).html("Player score: " + score(array));
   }
 
   function newCard() {
@@ -86,8 +80,6 @@ $(document).ready(function() {
     return sum;
   }
 
-  deal();
-
   $('#hit').click(function() {
     newCard();
   });
@@ -97,8 +89,9 @@ $(document).ready(function() {
     newCard()
   });
 
-  score(playersCard);
+  deal();
 
+  score(playersCard);
 
   function test() {
     console.log(shuffledCards)
