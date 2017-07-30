@@ -7,8 +7,7 @@ $(document).ready(function() {
   var card;
   var playersCard = [];
   var dealersCard = [];
-  var score1 = 0;
-  var turn = "player"
+  var turn = "player";
 
   function createDeck() {
     for(var i = 0; i < cards.length; i++) {
@@ -50,7 +49,6 @@ $(document).ready(function() {
   };
 
   function showCard(array, turn) {
-    console.log(array, turn)
     for (var key in array) {
       $('.'+turn).append("<div class='card " + array[key].suit + "'><span> " + array[key].value + " </span><span class='reverse " + array[key].suit + "'>" + array[key].value + "</span></div>");
     }
@@ -69,6 +67,7 @@ $(document).ready(function() {
       $('#score-' + turn + '').html("Player score: " + score(dealersCard));
     }
     shuffledCards.splice(0, 1);
+    checkWinner();
   }
 
   function score(object) {
@@ -76,7 +75,6 @@ $(document).ready(function() {
     for (var key in object) {
       sum += object[key].point;
     }
-    console.log(sum)
     return sum;
   }
 
@@ -88,24 +86,18 @@ $(document).ready(function() {
   }
 
   function checkWinner() {
-    if (score(dealersCard) > score(playersCard)) {
-      console.log("dealers won");
-      // turn = "player";
-      // score1++;
-      // restart();
-    } else if(score(dealersCard) === score(playersCard)) {
-      console.log("tie");
-    } else {
-      console.log("you win");
+    if (score(playersCard) > 21) {
+      console.log("You lose");
+      restart();
+    }
+    if (score(dealersCard) > 21) {
+      console.log("You win");
+      restart();
     }
   }
 
   $('#hit').click(function() {
-    if (score(playersCard) < 21) {
-      newCard();
-    } else {
-      console.log("you loose")
-    }
+    newCard();
   });
 
   $('#stick').click(function() {
@@ -113,8 +105,16 @@ $(document).ready(function() {
     while (score(dealersCard) < 17) {
       newCard()
     }
-    console.log(score(dealersCard));
-    checkWinner();
+    if (score(dealersCard) > 17) {
+      debugger
+      if (score(dealersCard) > score(playersCard)) {
+        console.log("You lose");
+        restart();
+      } else if (score(dealersCard) < score(playersCard)) {
+        console.log("You win");
+        restart();
+      }
+    }
   });
 
   $('#shuffle').click(function() {
@@ -126,7 +126,5 @@ $(document).ready(function() {
   function test() {
     console.log(shuffledCards)
   }
-
-  console.log(shuffledCards);
 
 });
