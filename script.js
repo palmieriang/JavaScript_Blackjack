@@ -89,14 +89,14 @@ $(document).ready(function() {
   }
 
   function checkWinner() {
+    if (score(dealersCard) > 21) {
+      $('#stick').attr("disabled", true);
+      theWinnerIs("dealer");
+    }
     if (score(playersCard) > 21) {
       theWinnerIs("dealer");
       $('#stick').attr("disabled", true);
       $('#hit').attr("disabled", true);
-    }
-    if (score(dealersCard) > 21) {
-      $('#stick').attr("disabled", true);
-      theWinnerIs("dealer");
     }
 
     if (score(dealersCard) >= 17 && score(dealersCard) <= 21) {
@@ -141,12 +141,12 @@ $(document).ready(function() {
     dealersCard.splice(0,dealersCard.length);
     $('.card').remove();
     turn = "player";
-    $('#winner').remove();
+    $('#winner').html(" ");
     deal();
   });  
 
   $('#shuffle').click(function() {
-    $('#winner').remove();
+    $('#winner').html(" ");
     turn = "player";
     $('#stick').attr("disabled", false);
     $('#hit').attr("disabled", false);
