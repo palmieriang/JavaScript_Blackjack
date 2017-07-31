@@ -12,16 +12,20 @@ $(document).ready(function() {
   function createDeck() {
     for(var i = 0; i < cards.length; i++) {
       for(var j = 0; j < suit.length; j++) {
-        if(cards[i] === "A") {
-          deck.push({"value": cards[i], "suit": suit[j], "point": 11});
-        } else if(cards[i] === "J" || cards[i] === "Q" || cards[i] === "K") {
-          deck.push({"value": cards[i], "suit": suit[j], "point": 10});
-        } else {
-          deck.push({"value": cards[i], "suit": suit[j], "point": cards[i]});
-        }
+        deck.push({"value": cards[i], "suit": suit[j], "point": getPoints(cards[i])});
       }
     }
     return deck;
+  }
+
+  function getPoints(card) {
+    if(card === "A") {
+      return 11;
+    } else if(card === "J" || card === "Q" || card === "K") {
+      return 10;
+    } else {
+      return card;
+    }  
   }
 
   (function shuffle() {
@@ -95,7 +99,7 @@ $(document).ready(function() {
       theWinnerIs("dealer");
     }
 
-    if (score(dealersCard) > 17 && score(dealersCard) <= 21) {
+    if (score(dealersCard) >= 17 && score(dealersCard) <= 21) {
       if (score(dealersCard) > score(playersCard)) {
         theWinnerIs("dealer");
         $('#stick').attr("disabled", true);
