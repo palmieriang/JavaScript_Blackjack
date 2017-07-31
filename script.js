@@ -137,7 +137,7 @@ $(document).ready(function() {
     dealersCard.splice(0,dealersCard.length);
     $('.card').remove();
     turn = "player";
-    $('.winner').remove();
+    $('#winner').remove();
     deal();
   });  
 
