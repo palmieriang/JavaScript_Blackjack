@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  var cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"];
+  var cards = ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"];
   var suit = ["Hearts", "Diamonds", "Spades", "Clubs"];
   var deck = [];
   var shuffledCards = [];
@@ -12,7 +12,7 @@ $(document).ready(function() {
   function createDeck() {
     for(var i = 0; i < cards.length; i++) {
       for(var j = 0; j < suit.length; j++) {
-        if(cards[i] === 1) {
+        if(cards[i] === "A") {
           deck.push({"value": cards[i], "suit": suit[j], "point": 11});
         } else if(cards[i] === "J" || cards[i] === "Q" || cards[i] === "K") {
           deck.push({"value": cards[i], "suit": suit[j], "point": 10});
@@ -96,7 +96,7 @@ $(document).ready(function() {
     }
 
     if (score(dealersCard) > 17 && score(dealersCard) <= 21) {
-      if (score(dealersCard) <= 21 && score(dealersCard) > score(playersCard)) {
+      if (score(dealersCard) > score(playersCard)) {
         theWinnerIs("dealer");
         $('#stick').attr("disabled", true);
       } else if (score(dealersCard) < score(playersCard)) {
@@ -142,7 +142,7 @@ $(document).ready(function() {
   });  
 
   $('#shuffle').click(function() {
-    $('.winner').remove();
+    $('#winner').remove();
     turn = "player";
     $('#stick').attr("disabled", false);
     $('#hit').attr("disabled", false);
