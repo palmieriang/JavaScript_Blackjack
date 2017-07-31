@@ -98,19 +98,8 @@ $(document).ready(function() {
       $('#stick').attr("disabled", true);
       // restart();
     }
-  }
 
-  $('#hit').click(function() {
-    newCard();
-  });
-
-  $('#stick').click(function() {
-    $('#hit').attr("disabled", true);
-    turn = "dealer";
-    while (score(dealersCard) < 17) {
-      newCard()
-    }
-    if (score(dealersCard) > 17) {
+    if (score(dealersCard) > 17 && score(dealersCard) <= 21) {
       if (score(dealersCard) <= 21 && score(dealersCard) > score(playersCard)) {
         console.log("You lose");
         $('#stick').attr("disabled", true);
@@ -126,6 +115,23 @@ $(document).ready(function() {
         // restart();
       }
     }
+
+  }
+
+  function theWinnerIs(winner) {
+    console.log(winner);
+  }
+
+  $('#hit').click(function() {
+    newCard();
+  });
+
+  $('#stick').click(function() {
+    $('#hit').attr("disabled", true);
+    turn = "dealer";
+    while (score(dealersCard) < 17) {
+      newCard()
+    }
   });
 
   $('#playAgain').click(function() {
@@ -134,6 +140,7 @@ $(document).ready(function() {
     playersCard.splice(0,playersCard.length);
     dealersCard.splice(0,dealersCard.length);
     $('.card').remove();
+    turn = "player";
 
     deal();
   });  
