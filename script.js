@@ -25,6 +25,7 @@ $(document).ready(function() {
   }
 
   (function shuffle() {
+    $('#hit').attr("disabled", false);
     shuffledCards = createDeck();
     for (var i = shuffledCards.length - 1; i > 0; i--) {
       var j = Math.floor(Math.random() * (i + 1));
@@ -88,11 +89,14 @@ $(document).ready(function() {
   function checkWinner() {
     if (score(playersCard) > 21) {
       console.log("You lose");
-      restart();
+      $('#stick').attr("disabled", true);
+      $('#hit').attr("disabled", true);
+      // restart();
     }
     if (score(dealersCard) > 21) {
       console.log("You win");
-      restart();
+      $('#stick').attr("disabled", true);
+      // restart();
     }
   }
 
@@ -101,21 +105,38 @@ $(document).ready(function() {
   });
 
   $('#stick').click(function() {
+    $('#hit').attr("disabled", true);
     turn = "dealer";
     while (score(dealersCard) < 17) {
       newCard()
     }
     if (score(dealersCard) > 17) {
-      debugger
-      if (score(dealersCard) > score(playersCard)) {
+      if (score(dealersCard) <= 21 && score(dealersCard) > score(playersCard)) {
         console.log("You lose");
-        restart();
+        $('#stick').attr("disabled", true);
+        // restart();
       } else if (score(dealersCard) < score(playersCard)) {
         console.log("You win");
-        restart();
+        $('#stick').attr("disabled", true);
+        // restart();
+      } else if (score(dealersCard) == score(playersCard)) {
+        console.log("Tie");
+        $('#stick').attr("disabled", true);
+        $('#hit').attr("disabled", true);
+        // restart();
       }
     }
   });
+
+  $('#playAgain').click(function() {
+    $('#stick').attr("disabled", false);
+    $('#hit').attr("disabled", false);
+    playersCard.splice(0,playersCard.length);
+    dealersCard.splice(0,dealersCard.length);
+    $('.card').remove();
+
+    deal();
+  });  
 
   $('#shuffle').click(function() {
     restart();
