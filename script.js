@@ -86,13 +86,11 @@ $(document).ready(function() {
 
   function checkWinner() {
     if (score(playersCard) > 21) {
-      console.log("You lose");
       theWinnerIs("dealer");
       $('#stick').attr("disabled", true);
       $('#hit').attr("disabled", true);
     }
     if (score(dealersCard) > 21) {
-      console.log("You win");
       $('#stick').attr("disabled", true);
       theWinnerIs("dealer");
     }
@@ -105,16 +103,19 @@ $(document).ready(function() {
         theWinnerIs("player");
         $('#stick').attr("disabled", true);
       } else if (score(dealersCard) == score(playersCard)) {
-        console.log("Tie");
+        theWinnerIs("tie");
         $('#stick').attr("disabled", true);
         $('#hit').attr("disabled", true);
       }
     }
-
   }
 
   function theWinnerIs(winner) {
-    $('#winner').html("The winner is: " + winner);
+    if(winner == "tie") {
+      $('#winner').html("Tie!");
+    } else {
+      $('#winner').html("The winner is: " + winner);
+    }
   }
 
   $('#hit').click(function() {
@@ -142,13 +143,12 @@ $(document).ready(function() {
 
   $('#shuffle').click(function() {
     $('.winner').remove();
+    turn = "player";
+    $('#stick').attr("disabled", false);
+    $('#hit').attr("disabled", false);
     restart();
   });
 
   deal();
-
-  function test() {
-    console.log(shuffledCards)
-  }
 
 });
