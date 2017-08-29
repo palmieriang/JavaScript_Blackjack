@@ -85,6 +85,7 @@ $(document).ready(function() {
     playersCard.splice(0,playersCard.length);
     dealersCard.splice(0,dealersCard.length);
     $('.card').remove();
+    turn = "player";
     deal();
   }
 
@@ -137,12 +138,8 @@ $(document).ready(function() {
   $('#playAgain').click(function() {
     $('#stick').attr("disabled", false);
     $('#hit').attr("disabled", false);
-    playersCard.splice(0,playersCard.length);
-    dealersCard.splice(0,dealersCard.length);
-    $('.card').remove();
-    turn = "player";
+    restart();
     $('#winner').html(" ");
-    deal();
   });  
 
   $('#shuffle').click(function() {
