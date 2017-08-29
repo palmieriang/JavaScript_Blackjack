@@ -91,30 +91,30 @@ $(document).ready(function() {
   function checkWinner() {
     if (score(dealersCard) > 21) {
       $('#stick').attr("disabled", true);
-      theWinnerIs("dealer");
+      setWinner("dealer");
     }
     if (score(playersCard) > 21) {
-      theWinnerIs("dealer");
+      setWinner("dealer");
       $('#stick').attr("disabled", true);
       $('#hit').attr("disabled", true);
     }
 
     if (score(dealersCard) >= 17 && score(dealersCard) <= 21) {
       if (score(dealersCard) > score(playersCard)) {
-        theWinnerIs("dealer");
+        setWinner("dealer");
         $('#stick').attr("disabled", true);
       } else if (score(dealersCard) < score(playersCard)) {
-        theWinnerIs("player");
+        setWinner("player");
         $('#stick').attr("disabled", true);
       } else if (score(dealersCard) == score(playersCard)) {
-        theWinnerIs("tie");
+        setWinner("tie");
         $('#stick').attr("disabled", true);
         $('#hit').attr("disabled", true);
       }
     }
   }
 
-  function theWinnerIs(winner) {
+  function setWinner(winner) {
     if(winner == "tie") {
       $('#winner').html("Tie!");
     } else {
