@@ -9,6 +9,18 @@ $(document).ready(function() {
   var dealersCard = [];
   var turn = "player";
 
+  var numberOfPlayers = 2;
+
+  // var players = [
+  //   {dealer: [], score: 0}
+  // ]
+
+  // for (var i = 1; i <= numberOfPlayers; i++) {
+  //   players.push({'player': [i], 'score': 0})
+  // }
+
+  // console.log(players);
+
   function createDeck() {
     for(var i = 0; i < cards.length; i++) {
       for(var j = 0; j < suit.length; j++) {
