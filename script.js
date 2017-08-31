@@ -13,11 +13,11 @@ $(document).ready(function() {
   var numberOfPlayers = 2;
 
   var players = [
-    {dealer: [], score: 0}
+    {cards: [], score: 0}
   ]
 
   for (var i = 1; i <= numberOfPlayers; i++) {
-    players['player' + i] = '0';
+    players.push({cards: [], score: 0})
   }
 
   console.log(players);
