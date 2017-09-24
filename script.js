@@ -39,7 +39,7 @@ $(document).ready(function() {
       return 10;
     } else {
       return card;
-    }  
+    }
   }
 
   (function shuffle() {
@@ -106,7 +106,7 @@ $(document).ready(function() {
   function checkWinner() {
     if (score(dealersCard) > 21) {
       $('#stick').attr("disabled", true);
-      setWinner("dealer");
+      setWinner("player");
     }
     if (score(playersCard) > 21) {
       setWinner("dealer");
@@ -144,7 +144,7 @@ $(document).ready(function() {
   $('#stick').click(function() {
     $('#hit').attr("disabled", true);
     turn = "dealer";
-    while (score(dealersCard) < 17) {
+    while (score(dealersCard) < score(playersCard)) {
       newCard()
     }
   });
@@ -154,7 +154,7 @@ $(document).ready(function() {
     $('#hit').attr("disabled", false);
     restart();
     $('#winner').html(" ");
-  });  
+  });
 
   $('#shuffle').click(function() {
     $('#winner').html(" ");
