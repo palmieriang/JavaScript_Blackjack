@@ -114,7 +114,7 @@ $(document).ready(function() {
       $('#hit').attr("disabled", true);
     }
 
-    if (score(dealersCard) >= 17 && score(dealersCard) <= 21) {
+    if (score(dealersCard) >= score(playersCard) && score(dealersCard) <= 21) {
       if (score(dealersCard) > score(playersCard)) {
         setWinner("dealer");
         $('#stick').attr("disabled", true);
