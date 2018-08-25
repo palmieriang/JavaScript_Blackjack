@@ -1,39 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>BlackJack</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
+	<meta charset="UTF-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>BlackJack</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- favicon created with https://realfavicongenerator.net/ -->
+	<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+	<link rel="manifest" href="favicon/site.webmanifest">
+	<link rel="mask-icon" href="favicon/safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="theme-color" content="#ffffff">
+
+	<!-- Style -->
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-  <div class="header"> &#9734 BlackJack &#9734 </div>
-  <div class="tableboard">
-    <div class="winner-row">
-      <p id="winner"></p>
-    </div>
-    <div class="player"></div>
+	<div class="header"> &#9734 BlackJack &#9734 </div>
+	<div class="tableboard">
+		<div class="winner-row">
+			<p id="winner"></p>
+		</div>
+		<div class="player"></div>
 
-    <div class="console-center">
-      <div class="sum-card">
-        <p id="score-player"></p>
-      </div>
-      <div class="player-button">
-        <button id="hit">Hit</button>
-        <button id="stick">Stick</button>
-        <button id="playAgain">Play again</button>
-        <button id="shuffle">Shuffle cards</button>
-      </div>
-      <div class="sum-card">
-        <span id="score-dealer"></span>
-      </div>
-    </div>
+		<div class="console-center">
+			<div class="sum-card">
+				<p id="score-player"></p>
+			</div>
+			<div class="player-button">
+				<button id="hit">Hit</button>
+				<button id="stick">Stick</button>
+				<button id="playAgain">Play again</button>
+				<button id="shuffle">Shuffle cards</button>
+			</div>
+			<div class="sum-card">
+				<span id="score-dealer"></span>
+			</div>
+		</div>
 
-    <div class="dealer"></div>
+		<div class="dealer"></div>
 
-  </div>
+	</div>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript" src="script.js"></script>
+	<!-- Script -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="script.js"></script>
 
 </body>
 </html>
