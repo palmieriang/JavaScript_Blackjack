@@ -1,22 +1,22 @@
 $(document).ready(function() {
 
-  var cards = ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"];
-  var suit = ["Hearts", "Diamonds", "Spades", "Clubs"];
-  var deck = [];
-  var shuffledCards = [];
-  var card;
-  var playersCard = [];
-  var dealersCard = [];
-  var turn = "player";
+  let cards = ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"],
+    suit = ["Hearts", "Diamonds", "Spades", "Clubs"],
+    deck = [],
+    shuffledCards = [],
+    card,
+    playersCard = [],
+    dealersCard = [],
+    turn = "player";
 
   // multiplayers start
-  var numberOfPlayers = 2;
+  let numberOfPlayers = 2;
 
-  var players = [
+  let players = [
     {cards: [], score: 0}
   ]
 
-  for (var i = 1; i <= numberOfPlayers; i++) {
+  for (let i = 1; i <= numberOfPlayers; i++) {
     players.push({cards: [], score: 0})
   }
 
@@ -24,8 +24,8 @@ $(document).ready(function() {
   // multiplayers end
 
   function createDeck() {
-    for(var i = 0; i < cards.length; i++) {
-      for(var j = 0; j < suit.length; j++) {
+    for(let i = 0; i < cards.length; i++) {
+      for(let j = 0; j < suit.length; j++) {
         deck.push({"value": cards[i], "suit": suit[j], "point": getPoints(cards[i])});
       }
     }
@@ -33,9 +33,9 @@ $(document).ready(function() {
   }
 
   function getPoints(card) {
-    if(card === "A") {
+    if (card === "A") {
       return 11;
-    } else if(card === "J" || card === "Q" || card === "K") {
+    } else if (card === "J" || card === "Q" || card === "K") {
       return 10;
     } else {
       return card;
@@ -45,9 +45,9 @@ $(document).ready(function() {
   (function shuffle() {
     $('#hit').attr("disabled", false);
     shuffledCards = createDeck();
-    for (var i = shuffledCards.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var temp = shuffledCards[i];
+    for (let i = shuffledCards.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      let temp = shuffledCards[i];
       shuffledCards[i] = shuffledCards[j];
       shuffledCards[j] = temp;
     }
@@ -66,30 +66,30 @@ $(document).ready(function() {
   };
 
   function showCard(array, turn) {
-    for (var key in array) {
+    for (let key in array) {
       $('.'+turn).append("<div class='card " + array[key].suit + "'><span> " + array[key].value + " </span><span class='reverse " + array[key].suit + "'>" + array[key].value + "</span></div>");
     }
-    $('#score-'+turn).html("Player score: " + score(array));
+    $('#score-'+turn).html(turn.charAt(0).toUpperCase() + turn.slice(1) + " score: " + score(array));
   }
 
   function newCard() {
-    var newCard = shuffledCards[0];
+    let newCard = shuffledCards[0];
     $('.' + turn).append("<div class='card " + newCard.suit + "'><span> " + newCard.value + " </span><span class='reverse " + newCard.suit + "'>" + newCard.value + "</span></div>");
     if (turn == "player") {
       playersCard.push(newCard);
-      $('#score-' + turn).html("Player score: " + score(playersCard));
+      $('#score-' + turn).html(turn.charAt(0).toUpperCase() + turn.slice(1) + " score: " + score(playersCard));
     }
     if (turn == "dealer") {
       dealersCard.push(newCard);
-      $('#score-' + turn + '').html("Player score: " + score(dealersCard));
+      $('#score-' + turn + '').html(turn.charAt(0).toUpperCase() + turn.slice(1) + " score: " + score(dealersCard));
     }
     shuffledCards.splice(0, 1);
     checkWinner();
   }
 
   function score(object) {
-    var sum = 0;
-    for (var key in object) {
+    let sum = 0;
+    for (let key in object) {
       sum += object[key].point;
     }
     return sum;
@@ -108,6 +108,7 @@ $(document).ready(function() {
       $('#stick').attr("disabled", true);
       setWinner("player");
     }
+
     if (score(playersCard) > 21) {
       setWinner("dealer");
       $('#stick').attr("disabled", true);
@@ -130,7 +131,7 @@ $(document).ready(function() {
   }
 
   function setWinner(winner) {
-    if(winner == "tie") {
+    if (winner == "tie") {
       $('#winner').html("Tie!");
     } else {
       $('#winner').html("The winner is: " + winner);
