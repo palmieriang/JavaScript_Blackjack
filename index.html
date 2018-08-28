@@ -20,31 +20,34 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-	<div class="header">&#9734 BlackJack &#9734</div>
-	<div class="tableboard">
-		<div class="winner-row">
-			<p id="winner"></p>
+	<header>
+		<div class="header">&#9734 BlackJack &#9734</div>
+	</header>
+	<main>
+		<div class="tableboard">
+			<div class="winner-row">
+				<p id="winner"></p>
+			</div>
+			<div class="player"></div>
+	
+			<div class="console-center">
+				<div class="sum-card">
+					<p id="score-player"></p>
+				</div>
+				<div class="player-button">
+					<button id="hit" class="btn btn1">Hit</button>
+					<button id="stick" class="btn btn2">Stick</button>
+					<button id="playAgain" class="btn btn3">Play again</button>
+					<button id="shuffle" class="btn btn4">Shuffle cards</button>
+				</div>
+				<div class="sum-card">
+					<span id="score-dealer"></span>
+				</div>
+			</div>
+	
+			<div class="dealer"></div>
 		</div>
-		<div class="player"></div>
-
-		<div class="console-center">
-			<div class="sum-card">
-				<p id="score-player"></p>
-			</div>
-			<div class="player-button">
-				<button id="hit" class="btn btn1">Hit</button>
-				<button id="stick" class="btn btn2">Stick</button>
-				<button id="playAgain" class="btn btn3">Play again</button>
-				<button id="shuffle" class="btn btn4">Shuffle cards</button>
-			</div>
-			<div class="sum-card">
-				<span id="score-dealer"></span>
-			</div>
-		</div>
-
-		<div class="dealer"></div>
-
-	</div>
+	</main>
 
 	<!-- Script -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
